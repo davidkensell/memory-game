@@ -1,14 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -24,6 +14,60 @@ function shuffle(array) {
 
     return array;
 }
+
+// List card icon class values
+let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+
+// Shuffle
+icons = shuffle(icons);
+console.log(icons);
+
+//Insert shuffled icons
+//Check parent li element class for 'card', then add icon from array to child i elem
+const cards = document.querySelectorAll('.card');
+for (let i = 0; i < cards.length; i++){
+  cards[i].firstElementChild.classList.add(icons[i]);
+  console.log(cards[i]);
+}
+
+
+/*
+ * Create a list that holds all of your cards
+ */
+
+// // Create HTML list
+// const frag = document.createDocumentFragment();
+// const newElement = frag.createElement('ul');
+//
+// // create html as function?
+// function createNewDeck(cards) {
+//     const cardHTML = `<li class="card">
+//         <i class="fa ${cards.0}"></i>
+//     </li>`;
+//     return cardHTML;
+// }
+//
+// //unvetted alt function
+// for (let i = 0; i < cards.length; i++) {
+//     const newElement = frag.createElement('li');
+//     newElement.innerText = 'This is paragraph number ' + i;
+//
+//     fragment.appendChild(newElement);
+// }
+//
+// document.body.appendChild(fragment);
+//
+//
+//
+// // class copypasta from performance
+// for (let i = 0; i < 200; i++) {
+//     const newElement = document.createElement('p');
+//     newElement.innerText = 'This is paragraph number ' + i;
+//
+//     fragment.appendChild(newElement);
+// }
+//
+// document.body.appendChild(fragment);
 
 
 /*
