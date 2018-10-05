@@ -15,61 +15,36 @@ function shuffle(array) {
     return array;
 }
 
-// List card icon class values
-let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+// Shuffle and deal cards
+function deal() {
+  // List card icon css values
+  let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+  // Shuffle
+  icons = shuffle(icons);
+  console.log(icons);
+  // Insert shuffled icons
+  const cards = document.querySelectorAll('.card');
+  for (let i = 0; i < cards.length; i++){
+    cards[i].firstElementChild.classList.add(icons[i]);
+    console.log(cards[i]);
+  }
+}
+deal();
 
-// Shuffle
-icons = shuffle(icons);
-console.log(icons);
+//event listening for card clicks
+const deck = document.querySelector('.deck');
+deck.addEventListener('click', respondToCardClick);
 
-//Insert shuffled icons
-//Check parent li element class for 'card', then add icon from array to child i elem
-const cards = document.querySelectorAll('.card');
-for (let i = 0; i < cards.length; i++){
-  cards[i].firstElementChild.classList.add(icons[i]);
-  console.log(cards[i]);
+// Listener that will queue other functions
+function respondToCardClick(evt) {
+    console.log('card clicked: ' + evt.target.classList);
+    showCard(evt);
 }
 
-
-/*
- * Create a list that holds all of your cards
- */
-
-// // Create HTML list
-// const frag = document.createDocumentFragment();
-// const newElement = frag.createElement('ul');
-//
-// // create html as function?
-// function createNewDeck(cards) {
-//     const cardHTML = `<li class="card">
-//         <i class="fa ${cards.0}"></i>
-//     </li>`;
-//     return cardHTML;
-// }
-//
-// //unvetted alt function
-// for (let i = 0; i < cards.length; i++) {
-//     const newElement = frag.createElement('li');
-//     newElement.innerText = 'This is paragraph number ' + i;
-//
-//     fragment.appendChild(newElement);
-// }
-//
-// document.body.appendChild(fragment);
-//
-//
-//
-// // class copypasta from performance
-// for (let i = 0; i < 200; i++) {
-//     const newElement = document.createElement('p');
-//     newElement.innerText = 'This is paragraph number ' + i;
-//
-//     fragment.appendChild(newElement);
-// }
-//
-// document.body.appendChild(fragment);
-
-
+//Display icon
+function showCard(evt) {
+  evt.target.classList.toggle('show');
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
