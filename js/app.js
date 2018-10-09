@@ -1,4 +1,18 @@
-
+// Shuffle and deal cards
+function deal() {
+  // Card icons css values
+  let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+  // Shuffle
+  icons = shuffle(icons);
+  console.log(icons);
+  // Insert shuffled icons
+  const cards = document.querySelectorAll('.card');
+  for (let i = 0; i < cards.length; i++){
+    cards[i].firstElementChild.classList.add(icons[i]);
+    console.log(cards[i]);
+  }
+}
+deal();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -15,23 +29,7 @@ function shuffle(array) {
     return array;
 }
 
-// Shuffle and deal cards
-function deal() {
-  // List card icon css values
-  let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-  // Shuffle
-  icons = shuffle(icons);
-  console.log(icons);
-  // Insert shuffled icons
-  const cards = document.querySelectorAll('.card');
-  for (let i = 0; i < cards.length; i++){
-    cards[i].firstElementChild.classList.add(icons[i]);
-    console.log(cards[i]);
-  }
-}
-deal();
-
-//event listening for card clicks
+// Event listening for card clicks
 const deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToCardClick);
 
@@ -42,15 +40,36 @@ function respondToCardClick(evt) {
     trackOpen(evt);
 }
 
-//Display icon
+// restart
+const restart = document.querySelector('.restart');
+restart.addEventListener('click', reStart);
+
+function reStart(){
+  const cards = document.querySelectorAll('.card');
+  // remove card status classes
+  for (let i = 0; i < cards.length; i++){
+    cards[i].classList.remove('show', 'open', "mismatch", "disabled", "match");
+  }
+  // remove card icons
+  for (let i = 0; i < cards.length; i++){
+    let current = cards[i].firstElementChild.classList.item(1);
+    cards[i].firstElementChild.classList.remove(current);
+  }
+  // reset open counter, move counter, and then redeal icons
+  open.length = 0;
+  resetCounter();
+  deal();
+}
+
+// Display icon on card click
 function showCard(evt) {
   evt.target.classList.toggle('show');
 }
 
-//Array of open cards
+// Array of open cards
 const open = [];
 
-//Checks for dbl click before proceeding
+// Checks for dbl click before proceeding
 function disAble(evt){
   if (evt.target.classList.contains('disabled')){
     console.log('double click');
@@ -59,10 +78,25 @@ function disAble(evt){
     evt.target.classList.toggle('disabled')
     showCard(evt);
     addOpen(evt);
+    moveCounter();
   }
 }
 
-//Add icon to open card tracking.
+// Count number of moves
+let count = 0;
+function moveCounter(){
+  const counter = document.querySelector('.moves');
+  count++;
+  counter.textContent = count;
+}
+
+function resetCounter(){
+  const counter = document.querySelector('.moves');
+  count = 0;
+  counter.textContent = count;
+}
+
+// Add icon to open card tracking.
 function addOpen(evt) {
   let icon = evt.target.firstElementChild.classList.item(1);
   //add icon
