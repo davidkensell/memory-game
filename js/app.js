@@ -35,15 +35,81 @@ deal();
 const deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToCardClick);
 
-// Listener that will queue other functions
+// Listener that will queue function stack
 function respondToCardClick(evt) {
-    console.log('card clicked: ' + evt.target.classList);
-    showCard(evt);
+    console.log('card class: ' + evt.target.classList);
+    disAble(evt);
+    trackOpen(evt);
 }
 
 //Display icon
 function showCard(evt) {
   evt.target.classList.toggle('show');
+}
+
+//Array of open cards
+const open = [];
+
+//Checks for dbl click before proceeding
+function disAble(evt){
+  if (evt.target.classList.contains('disabled')){
+    console.log('double click');
+  }
+  else{
+    evt.target.classList.toggle('disabled')
+    showCard(evt);
+    addOpen(evt);
+  }
+}
+
+//Add icon to open card tracking.
+function addOpen(evt) {
+  let icon = evt.target.firstElementChild.classList.item(1);
+  //add icon
+  open.push(icon);
+  console.log('icon: ' + icon);
+  console.log('open: ' + open);
+  //toggle card class
+  evt.target.classList.toggle('open');
+}
+
+// Check to see if open cards match
+function trackOpen(evt) {
+  if (open.length === 2) {
+    if ((open[1]) === (open[0])){
+      console.log('card match ran');
+      return cardMatch();
+    }
+    else {
+      console.log('clear open ran');
+      return misMatch();
+    }
+  }
+}
+
+// Mark matched cards
+function cardMatch(){
+  let matches = document.querySelectorAll('.open');
+  matches[0].classList.add('match');
+  matches[1].classList.add('match');
+  clearOpen();
+}
+
+// Display mismatches red for one sec, then clear
+function misMatch(){
+  let mismatches = document.querySelectorAll('.open');
+  mismatches[0].classList.add('mismatch');
+  mismatches[1].classList.add('mismatch');
+  setTimeout(clearOpen, 1000);
+}
+
+// Clear opened cards css and from tracking array
+function clearOpen(){
+  let opens = document.querySelectorAll('.open');
+  for (let i = 0; i < opens.length; i++){
+    opens[i].classList.remove('show', 'open', "mismatch", "disabled");
+    open.length = 0;
+  }
 }
 /*
  * set up the event listener for a card. If a card is clicked:
