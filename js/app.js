@@ -1,3 +1,12 @@
+// Shared tracking variables
+const open = []; // Open cards, where "open" is a flipped unmatched card
+let moves = 0; // Number of moves made, where each flipped card is a move
+let matched = 0; // Number of matches, where a pair equals 1
+var timerId; // Game clock needs to be accessible by start and stop functions
+
+// Begin game on page load
+deal();
+
 // Shuffle and deal cards
 function deal() {
   // Card icons css values
@@ -12,7 +21,6 @@ function deal() {
     console.log(cards[i]);
   }
 }
-deal();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -67,9 +75,6 @@ function showCard(evt) {
   evt.target.classList.toggle('show');
 }
 
-// Array of open cards
-const open = [];
-
 // Checks for dbl click before proceeding
 function disAble(evt){
   if (evt.target.classList.contains('disabled')){
@@ -85,13 +90,13 @@ function disAble(evt){
 }
 
 // Count number of moves
-let moves = 0;
 function moveCounter(){
   const counter = document.querySelector('.moves');
   moves++;
   counter.textContent = moves;
 }
 
+// Reset moves to zero
 function resetCounter(){
   const counter = document.querySelector('.moves');
   moves = 0;
@@ -153,7 +158,6 @@ function trackOpen(evt) {
   }
 }
 
-let matched = 0;
 // Mark matched cards
 function cardMatch(){
   let matches = document.querySelectorAll('.open');
@@ -162,9 +166,12 @@ function cardMatch(){
   matched++;
   console.log("matched " + matched);
   clearOpen();
-}
 
-// Game Over! Toggle modal when matched = 8
+  if (matched === 8) {
+    stopWatch();
+    gameOver();
+  }
+}
 
 // Display mismatches red for one sec, then clear
 function misMatch(){
@@ -183,6 +190,29 @@ function clearOpen(){
   }
 }
 
-function timer(){
+// Start game clock, guided by https://javascript.info/settimeout-setinterval
+function startWatch() {
+  const timer = document.querySelector(".timer");
+  let m = 0;
+  let s = 0;
 
+  timerId = setInterval(function() {
+    timer.textContent = (m + ' min ' + s + ' sec');
+    s++;
+    if (s == 60){
+      m++;
+      s = 0;
+    }
+    console.log(m + ' min ' + s + ' sec')
+  }, 1000);
+}
+
+// Stop game clock
+function stopWatch() {
+  clearInterval(timerId);
+}
+
+// Game Over! Toggle modal when matched = 8
+function gameOver(){
+  
 }
