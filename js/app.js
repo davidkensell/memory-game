@@ -3,6 +3,9 @@ const open = []; // Open cards, where "open" is a flipped unmatched card
 let moves = 0; // Number of moves made, where each flipped card is a move
 let matched = 0; // Number of matches, where a pair equals 1
 var timerId; // Game clock needs to be accessible by start and stop functions
+let m = 0; // Game clock minutes
+let s = 0; // Game clock seconds
+const timer = document.querySelector(".timer"); // Game clock span
 
 // Begin game on page load
 deal();
@@ -63,9 +66,11 @@ function reStart(){
     let current = cards[i].firstElementChild.classList.item(1);
     cards[i].firstElementChild.classList.remove(current);
   }
-  // reset open counter, move counter, and then redeal icons
+  // reset open counter, move counter, game clock, stars, and then redeal icons
   open.length = 0;
   matched.length = 0;
+  clearWatch();
+  clearStar();
   resetCounter();
   deal();
 }
@@ -94,6 +99,9 @@ function moveCounter(){
   const counter = document.querySelector('.moves');
   moves++;
   counter.textContent = moves;
+  if (moves === 1){
+    startWatch();
+  }
 }
 
 // Reset moves to zero
@@ -103,16 +111,18 @@ function resetCounter(){
   counter.textContent = moves;
 }
 
+
+// Star id and icons
+const star1 = document.querySelector('#star1');
+const star2 = document.querySelector('#star2');
+const star3 = document.querySelector('#star3');
+
+const full = "fa-star";
+const half = "fa-star-half-empty";
+const none = "fa-star-o";
+
 // Remove stars as moves increase
 function starScore(){
-  const star1 = document.querySelector('#star1');
-  const star2 = document.querySelector('#star2');
-  const star3 = document.querySelector('#star3');
-
-  let full = "fa-star";
-  let half = "fa-star-half-empty";
-  let none = "fa-star-o";
-
   if (moves === 16){
     star3.classList.replace(full, half);
   }
@@ -131,6 +141,17 @@ function starScore(){
   if (moves === 40){
     star1.classList.replace(half, none);
   }
+}
+
+// Reset stars
+function clearStar(){
+  let z = star3.classList.item(1);
+  let y = star2.classList.item(1);
+  let x = star1.classList.item(1);
+
+  star3.classList.replace(z, full);
+  star2.classList.replace(y, full);
+  star1.classList.replace(x, full);
 }
 
 // Add icon to open card tracking.
@@ -193,11 +214,9 @@ function clearOpen(){
 // Start game clock, guided by https://javascript.info/settimeout-setinterval
 function startWatch() {
   const timer = document.querySelector(".timer");
-  let m = 0;
-  let s = 0;
 
   timerId = setInterval(function() {
-    timer.textContent = (m + ' min ' + s + ' sec');
+    timer.textContent = (' | ' + m + ' min ' + s + ' sec');
     s++;
     if (s == 60){
       m++;
@@ -212,7 +231,14 @@ function stopWatch() {
   clearInterval(timerId);
 }
 
+function clearWatch(){
+  stopWatch();
+  m = 0;
+  s = 0;
+  timer.textContent = "";
+}
+
 // Game Over! Toggle modal when matched = 8
 function gameOver(){
-  
+
 }
