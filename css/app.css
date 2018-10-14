@@ -118,7 +118,7 @@ h1 {
  * Styles for the Congrats modal, courtesy CSS Tricks
  */
 
- .modal {
+ /* .modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -138,7 +138,7 @@ h1 {
 
  .modal.closed {
    display: none;
- }
+ } */
 
 /* Styles from W3 schools modal https://www.w3schools.com/howto/howto_css_modals.asp
 
