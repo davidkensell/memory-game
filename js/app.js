@@ -128,7 +128,7 @@ function clearOpen(){
 function moveCounter(){
   const counter = document.querySelector('.moves');
   moves++;
-  counter.textContent = moves;
+  counter.textContent = moves + " Moves";
   if (moves === 1){
     startWatch();
   }
@@ -155,19 +155,19 @@ function starScore(){
   if (moves === 16){
     star3.classList.replace(full, half);
   }
-  if (moves === 20){
+  if (moves === 24){
     star3.classList.replace(half, none);
   }
-  if (moves === 25){
+  if (moves === 32){
     star2.classList.replace(full, none);
   }
-  if (moves === 30){
+  if (moves === 40){
     star2.classList.replace(half, none);
   }
-  if (moves === 35){
+  if (moves === 44){
     star1.classList.replace(full, half);
   }
-  if (moves === 40){
+  if (moves === 48){
     star1.classList.replace(half, none);
   }
 }
@@ -199,7 +199,6 @@ function startWatch() {
       m++;
       s = 0;
     }
-    console.log(m + ' min ' + s + ' sec')
   }, 1000);
 }
 
