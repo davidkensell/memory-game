@@ -1,7 +1,7 @@
 # memory-game
 
 ## Dependencies
-None. No jquery, no bootstrap, nada.
+Font Awesome icon set.
 
 ## Gameplay
 It's Classic Concentration: you know the deal. Click a card to flip it, then find its match; matches stay flipped, mismatches are flipped back over. Match cards in as few moves as you can, as fast as you can. The more moves it takes, the lower your star rating will be. Restart at any time by clicking the icon that looks like a refresh symbol in the score bug.
