@@ -13,12 +13,10 @@ function deal() {
   let icons = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
   // Shuffle
   icons = shuffle(icons);
-  console.log(icons);
   // Insert shuffled icons
   const cards = document.querySelectorAll('.card');
   for (let i = 0; i < cards.length; i++){
     cards[i].firstElementChild.classList.add(icons[i]);
-    console.log(cards[i]);
   }
 }
 
@@ -43,7 +41,6 @@ deck.addEventListener('click', respondToCardClick);
 
 // Listener that will queue function stack
 function respondToCardClick(evt) {
-    console.log('card class: ' + evt.target.classList);
     disAble(evt);
     trackOpen(evt);
 }
@@ -51,7 +48,6 @@ function respondToCardClick(evt) {
 // Checks for dbl click before proceeding
 function disAble(evt){
   if (evt.target.classList.contains('disabled')){
-    console.log('double click');
   }
   else{
     evt.target.classList.toggle('disabled')
@@ -72,8 +68,6 @@ function addOpen(evt) {
   let icon = evt.target.firstElementChild.classList.item(1);
   //add icon
   open.push(icon);
-  console.log('icon: ' + icon);
-  console.log('open: ' + open);
   //toggle card class
   evt.target.classList.toggle('open');
 }
@@ -82,11 +76,9 @@ function addOpen(evt) {
 function trackOpen(evt) {
   if (open.length === 2) {
     if ((open[1]) === (open[0])){
-      console.log('card match ran');
       return cardMatch();
     }
     else {
-      console.log('clear open ran');
       return misMatch();
     }
   }
@@ -98,7 +90,6 @@ function cardMatch(){
   matches[0].classList.add('match');
   matches[1].classList.add('match');
   matched++;
-  console.log("matched " + matched);
   clearOpen();
 
   if (matched === 8) {
@@ -128,7 +119,7 @@ function clearOpen(){
 function moveCounter(){
   const counter = document.querySelector('.moves');
   moves++;
-  counter.textContent = moves + " Moves";
+  counter.textContent = moves;
   if (moves === 1){
     startWatch();
   }
@@ -159,7 +150,7 @@ function starScore(){
     star3.classList.replace(half, none);
   }
   if (moves === 32){
-    star2.classList.replace(full, none);
+    star2.classList.replace(full, half);
   }
   if (moves === 40){
     star2.classList.replace(half, none);

@@ -114,7 +114,7 @@ h1 {
     cursor: pointer;
 }
 
-/* The Modal (background) */
+/* The Modal (background) via https://www.w3schools.com/howto/howto_css_modals.asp */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -152,7 +152,7 @@ h1 {
     cursor: pointer;
 }
 
-/* Buttons from CSS Tricks  https://css-tricks.com/overriding-default-button-styles/ */
+/* Buttons based off CSS Tricks  https://css-tricks.com/overriding-default-button-styles/ */
 
 button {
     display: inline-block;
