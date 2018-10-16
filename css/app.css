@@ -114,7 +114,7 @@ h1 {
     cursor: pointer;
 }
 
-/* The Modal (background) via https://www.w3schools.com/howto/howto_css_modals.asp */
+/* Modal (background) via https://www.w3schools.com/howto/howto_css_modals.asp */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

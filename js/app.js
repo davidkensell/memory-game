@@ -41,16 +41,24 @@ deck.addEventListener('click', respondToCardClick);
 
 // Listener that will queue function stack
 function respondToCardClick(evt) {
-    disAble(evt);
-    trackOpen(evt);
+  if (evt.target.classList.contains('card')){
+    if (evt.target.classList.contains('open') || evt.target.classList.contains('match')){
+      ; // empty statement to do nothing on dbl click
+    } else {
+      disAble(evt); // TODO prbly don't need disable anymore
+      trackOpen(evt);
+    }
+  }
+  ; // empty statement if it's not a card clicked (like margins or icon)
 }
 
 // Checks for dbl click before proceeding
 function disAble(evt){
   if (evt.target.classList.contains('disabled')){
+    ; // empty statement to do nothing on dbl click
   }
   else{
-    evt.target.classList.toggle('disabled')
+    evt.target.classList.add('disabled');
     showCard(evt);
     addOpen(evt);
     moveCounter();
@@ -154,12 +162,7 @@ function starScore(){
   }
   if (moves === 40){
     star2.classList.replace(half, none);
-  }
-  if (moves === 44){
-    star1.classList.replace(full, half);
-  }
-  if (moves === 48){
-    star1.classList.replace(half, none);
+  //TODO add in star1 handliing when pass Udacity review
   }
 }
 
